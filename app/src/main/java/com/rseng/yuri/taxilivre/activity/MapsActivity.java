@@ -24,6 +24,7 @@ public class MapsActivity extends AppCompatActivity implements DrawerFragment.Na
         drawer = (DrawerLayout) findViewById(R.id.drawer);
 
         setupDrawerLayout();
+        
 
         if(savedInstanceState == null) {
          /*
