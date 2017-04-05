@@ -10,13 +10,20 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.rseng.yuri.taxilivre.R;
 import com.rseng.yuri.taxilivre.fragment.DrawerFragment;
 
-public class MapsActivity extends AppCompatActivity implements DrawerFragment.NavCallback  {
+public class MapsActivity extends AppCompatActivity implements DrawerFragment.NavCallback, OnMapReadyCallback {
 
     private DrawerLayout drawer;
     private ActionBarDrawerToggle mDrawerToggle;
+    private GoogleMap mMap;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,7 +31,6 @@ public class MapsActivity extends AppCompatActivity implements DrawerFragment.Na
         drawer = (DrawerLayout) findViewById(R.id.drawer);
 
         setupDrawerLayout();
-        
 
         if(savedInstanceState == null) {
          /*
@@ -35,6 +41,11 @@ public class MapsActivity extends AppCompatActivity implements DrawerFragment.Na
                     .add(R.id.nav_container, DrawerFragment.newInstance(), "Drawer")
                     .commit();
         }
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+
     }
 
     @Override
@@ -108,5 +119,15 @@ public class MapsActivity extends AppCompatActivity implements DrawerFragment.Na
     @Override
     public void onNavSelected(int position) {
         Toast.makeText(this, "Selected item: "+ position + " from nav", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+
+        // Add a marker in Sydney and move the camera
+        LatLng posicao = new LatLng(-3.740087, -38.605478);
+        mMap.addMarker(new MarkerOptions().position(posicao).title("Marker in Position"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(posicao,15));
     }
 }
