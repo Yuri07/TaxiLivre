@@ -48,8 +48,8 @@ public class DrawerFragment extends Fragment {
         /*
             You can really use anything you want here but for simplicity lest assume ListView
          */
-        mListView = (ListView) view.findViewById(R.id.listViewNav);
-        mListView.setOnItemClickListener(ListListener);
+        //mListView = (ListView) view.findViewById(R.id.listViewNav);
+        //mListView.setOnItemClickListener(ListListener);
         return view;
     }
 
@@ -57,7 +57,7 @@ public class DrawerFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         // Simple adapter, Also this is for simplicity and adapter can be used
-        mListView.setAdapter(new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, NAV_ITEMS));
+       // mListView.setAdapter(new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, NAV_ITEMS));
 
     }
 
