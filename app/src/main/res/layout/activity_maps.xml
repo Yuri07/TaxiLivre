@@ -24,9 +24,9 @@
 
         <FrameLayout
             android:id="@+id/nav_container"
-            android:layout_gravity="start"
             android:layout_width="240dp"
-            android:layout_height="fill_parent"/>
+            android:layout_height="fill_parent"
+            android:layout_gravity="start" />
 
     </android.support.v4.widget.DrawerLayout>
 
