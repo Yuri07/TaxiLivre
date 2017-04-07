@@ -2,9 +2,12 @@ package com.rseng.yuri.taxilivre.activity;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,8 +22,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.rseng.yuri.taxilivre.R;
 import com.rseng.yuri.taxilivre.fragment.DrawerFragment;
 
-public class MapsActivity extends AppCompatActivity implements DrawerFragment.NavCallback, OnMapReadyCallback {
-
+public class MapsActivity extends AppCompatActivity implements DrawerFragment.NavCallback,
+        OnMapReadyCallback{
     private DrawerLayout drawer;
     private ActionBarDrawerToggle mDrawerToggle;
     private GoogleMap mMap;
@@ -28,24 +31,45 @@ public class MapsActivity extends AppCompatActivity implements DrawerFragment.Na
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         drawer = (DrawerLayout) findViewById(R.id.drawer);
+        /*ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();*/
 
         setupDrawerLayout();
+
 
         if(savedInstanceState == null) {
          /*
             Load the fragment for the drawer
          */
+            DrawerFragment df = DrawerFragment.newInstance();
             getSupportFragmentManager()
                     .beginTransaction()
-                    .add(R.id.nav_container, DrawerFragment.newInstance(), "Drawer")
+                    .add(R.id.nav_container, df, "Drawer")
                     .commit();
+
+
         }
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
     }
 
     @Override
@@ -115,11 +139,29 @@ public class MapsActivity extends AppCompatActivity implements DrawerFragment.Na
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
     }
-
+    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public void onNavSelected(int position) {
         Toast.makeText(this, "Selected item: "+ position + " from nav", Toast.LENGTH_SHORT).show();
+
+        if (position == R.id.nav_viagens) {
+            // Handle the camera action
+
+        } else if (position == R.id.nav_ajuda) {
+
+        } else if (position == R.id.nav_configuracoes) {
+
+        } else if (position == R.id.nav_about_us) {
+
+        } else if (position == R.id.nav_privacy_policy) {
+
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer);
+        drawer.closeDrawer(GravityCompat.START);
     }
+
+
 
     @Override
     public void onMapReady(GoogleMap googleMap) {

@@ -2,13 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_home"
+            android:id="@+id/nav_viagens"
             android:title="@string/nav_viagens" />
         <item
-            android:id="@+id/nav_photos"
+            android:id="@+id/nav_ajuda"
             android:title="@string/nav_ajuda" />
         <item
-            android:id="@+id/nav_movies"
+            android:id="@+id/nav_configuracoes"
             android:title="@string/nav_configuracoes" />
 
     </group>

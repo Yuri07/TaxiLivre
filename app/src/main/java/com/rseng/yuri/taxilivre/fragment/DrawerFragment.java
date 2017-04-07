@@ -4,8 +4,12 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -15,12 +19,14 @@ import android.widget.ListView;
 import com.rseng.yuri.taxilivre.R;
 import com.rseng.yuri.taxilivre.activity.MapsActivity;
 
-public class DrawerFragment extends Fragment {
+public class DrawerFragment extends Fragment implements  NavigationView.OnNavigationItemSelectedListener {
 
 
-    private static final String [] NAV_ITEMS = {"Viagens", "Ajuda", "Configurações"};
-    private ListView mListView;
+    //private static final String [] NAV_ITEMS = {"Viagens", "Ajuda", "Configurações"};
+    //private ListView mListView;
     private NavCallback mCallback;
+
+    NavigationView navigationView;
 
     public interface NavCallback{
         void onNavSelected(int position);
@@ -45,11 +51,13 @@ public class DrawerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_drawer, container, false);
 
+        navigationView = (NavigationView) view.findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
         /*
             You can really use anything you want here but for simplicity lest assume ListView
          */
-        mListView = (ListView) view.findViewById(R.id.listViewNav);
-        mListView.setOnItemClickListener(ListListener);
+        //mListView = (ListView) view.findViewById(R.id.listViewNav);
+        //mListView.setOnItemClickListener(ListListener);
         return view;
     }
 
@@ -57,14 +65,23 @@ public class DrawerFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         // Simple adapter, Also this is for simplicity and adapter can be used
-        mListView.setAdapter(new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, NAV_ITEMS));
+       // mListView.setAdapter(new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1, NAV_ITEMS));
 
     }
 
-    private final AdapterView.OnItemClickListener ListListener = new AdapterView.OnItemClickListener() {
+    /*private final AdapterView.OnItemClickListener ListListener = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             mCallback.onNavSelected(position);
         }
-    };
+    };*/
+
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+        mCallback.onNavSelected(id);
+
+        return true;
+    }
 }
