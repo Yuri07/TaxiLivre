@@ -20,8 +20,8 @@ public class MainEmptyActivity extends AppCompatActivity {
 
         Intent activityIntent;
 
-        //activityIntent = new Intent(this, MapsActivity.class);
-        activityIntent = new Intent(this, LoginActivity.class);
+        activityIntent = new Intent(this, MapsActivity.class);
+        //activityIntent = new Intent(this, LoginActivity.class);
         // go straight to main if a token is stored
         /*if (Util.getToken() != null) {
             activityIntent = new Intent(this, MapsActivity.class);
